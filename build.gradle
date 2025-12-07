@@ -66,15 +66,25 @@ minecraft {
     }
 }
 
+ext.includeOptionalMods = project.hasProperty('includeOptionalMods') && project.property('includeOptionalMods') == 'true'
+
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2864'
 
-    implementation 'curse.maven:seasons-291874:2799213'
-    implementation 'curse.maven:gamestages-268655:2951840'
-    implementation 'curse.maven:lostcities-269024:2861574'
+    if (includeOptionalMods) {
+        // Include optional mods on runtime for development if explicitly requested
+        compile 'curse.maven:seasons-291874:2799213'
+        compile 'curse.maven:gamestages-268655:2951840'
+        compile 'curse.maven:lostcities-269024:2861574'
+    } else {
+        // Make these compile-only so they are available for compilation but not copied to run/mods
+        compileOnly 'curse.maven:seasons-291874:2799213'
+        compileOnly 'curse.maven:gamestages-268655:2951840'
+        compileOnly 'curse.maven:lostcities-269024:2861574'
+    }
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"

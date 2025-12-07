@@ -2,7 +2,7 @@ package mcjty.incontrol.rules;
 
 import com.google.gson.JsonElement;
 import mcjty.incontrol.InControl;
-// import mcjty.incontrol.compat.ModRuleCompatibilityLayer;
+import mcjty.incontrol.compat.ModRuleCompatibilityLayer;
 import mcjty.incontrol.rules.support.GenericRuleEvaluator;
 import mcjty.tools.rules.IEventQuery;
 import mcjty.tools.rules.IModRuleCompatibilityLayer;
@@ -215,7 +215,7 @@ public class SpawnRule extends RuleBase<RuleBase.EventGetter> {
         super(InControl.setup.getLogger());
         this.onJoin = onJoin;
         ruleEvaluator = new GenericRuleEvaluator(map);
-        // addActions(map, new ModRuleCompatibilityLayer());
+        addActions(map, new ModRuleCompatibilityLayer());
     }
 
     public static SpawnRule parse(JsonElement element) {
